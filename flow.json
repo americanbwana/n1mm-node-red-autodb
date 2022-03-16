@@ -1,0 +1,146 @@
+[
+    {
+        "id": "f835dbd2e45e7ed4",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "eed8360a46417558",
+        "type": "sqlitedb",
+        "db": "qsos",
+        "mode": "RWC"
+    },
+    {
+        "id": "07ef855548850e73",
+        "type": "inject",
+        "z": "f835dbd2e45e7ed4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 360,
+        "wires": [
+            [
+                "831ea4906f11020d"
+            ]
+        ]
+    },
+    {
+        "id": "831ea4906f11020d",
+        "type": "sqlite",
+        "z": "f835dbd2e45e7ed4",
+        "mydb": "eed8360a46417558",
+        "sqlquery": "fixed",
+        "sql": "CREATE TABLE IF NOT EXISTS qsos(\n  \"app\" TEXT,\n  \"contestname\" TEXT,\n  \"contestnr\" TEXT,\n  \"timestamp\" TEXT,\n  \"mycall\" TEXT,\n  \"band\" TEXT,\n  \"rxfreq\" TEXT,\n  \"txfreq\" TEXT,\n  \"operator\" TEXT,\n  \"mode\" TEXT,\n  \"call\" TEXT,\n  \"countryprefix\" TEXT,\n  \"wpxprefix\" TEXT,\n  \"stationprefix\" TEXT,\n  \"continent\" TEXT,\n  \"snt\" TEXT,\n  \"sntnr\" TEXT,\n  \"rcv\" TEXT,\n  \"rcvnr\" TEXT,\n  \"gridsquare\" TEXT,\n  \"exchange1\" TEXT,\n  \"section\" TEXT,\n  \"comment\" TEXT,\n  \"qth\" TEXT,\n  \"name\" TEXT,\n  \"power\" TEXT,\n  \"misctext\" TEXT,\n  \"zone\" TEXT,\n  \"prec\" TEXT,\n  \"ck\" TEXT,\n  \"ismultiplier1\" TEXT,\n  \"ismultiplier2\" TEXT,\n  \"ismultiplier3\" TEXT,\n  \"points\" TEXT,\n  \"radionr\" TEXT,\n  \"run1run2\" TEXT,\n  \"RoverLocation\" TEXT,\n  \"RadioInterfaced\" TEXT,\n  \"NetworkedCompNr\" TEXT,\n  \"IsOriginal\" TEXT,\n  \"NetBiosName\" TEXT,\n  \"IsRunQSO\" TEXT,\n  \"StationName\" TEXT,\n  \"ID\" TEXT,\n  \"IsClaimedQso\" TEXT,\n  \"lat\" TEXT,\n  \"lon\" TEXT,\n  \"isbusted\" TEXT,\n  \"distance\" TEXT\n);",
+        "name": "Create db and qsos table",
+        "x": 550,
+        "y": 360,
+        "wires": [
+            [
+                "178848ea4528fb3d",
+                "bf5913e20e1261ae"
+            ]
+        ]
+    },
+    {
+        "id": "178848ea4528fb3d",
+        "type": "sqlite",
+        "z": "f835dbd2e45e7ed4",
+        "mydb": "eed8360a46417558",
+        "sqlquery": "fixed",
+        "sql": "CREATE TABLE IF NOT EXISTS spots(\n  \"call\" TEXT type UNIQUE,\n  \"lat\" TEXT,\n  \"lon\" TEXT,\n  \"grid\" TEXT\n);",
+        "name": "Create spots table",
+        "x": 950,
+        "y": 360,
+        "wires": [
+            [
+                "71db0a30959d597e",
+                "38654144f5d3ec0d"
+            ]
+        ]
+    },
+    {
+        "id": "71db0a30959d597e",
+        "type": "sqlite",
+        "z": "f835dbd2e45e7ed4",
+        "mydb": "eed8360a46417558",
+        "sqlquery": "fixed",
+        "sql": "CREATE INDEX IF NOT EXISTS call_idx on spots(call);",
+        "name": "Create spot idx",
+        "x": 1320,
+        "y": 360,
+        "wires": [
+            [
+                "f85bcce5e6a6fab8"
+            ]
+        ]
+    },
+    {
+        "id": "bf5913e20e1261ae",
+        "type": "debug",
+        "z": "f835dbd2e45e7ed4",
+        "name": "Create DB debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "38654144f5d3ec0d",
+        "type": "debug",
+        "z": "f835dbd2e45e7ed4",
+        "name": "Create spots debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f85bcce5e6a6fab8",
+        "type": "debug",
+        "z": "f835dbd2e45e7ed4",
+        "name": "Create idx debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1530,
+        "y": 280,
+        "wires": []
+    }
+]

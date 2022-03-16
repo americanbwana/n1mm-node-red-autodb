@@ -1,0 +1,12 @@
+{
+    "name": "N1MM-node-red-autodb",
+    "description": "Auto creation with schema for qsos db",
+    "version": "0.0.1",
+    "dependencies": {},
+    "node-red": {
+        "settings": {
+            "flowFile": "flow.json",
+            "credentialsFile": "flow_cred.json"
+        }
+    }
+}
